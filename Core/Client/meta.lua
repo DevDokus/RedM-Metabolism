@@ -15,6 +15,7 @@ end)
 --------------------------------------------------------------------------------
 -- Event Register
 RegisterNetEvent('DevDokus:Metabolism:C:SetFirstStatus')
+RegisterNetEvent('DevDokus:Metabolism:C:Consume')
 RegisterNetEvent('DevDokus:Metabolism:C:Hunger')
 RegisterNetEvent('DevDokus:Metabolism:C:Thirst')
 RegisterNetEvent('DevDokus:Metabolism:C:Stamina')
@@ -36,16 +37,16 @@ local IsStatsSet  = false
 --------------------------------------------------------------------------------
 -- Citizen.CreateThread(function()
 --   local run = true
---   while run do Wait((TimeToLoad * 1000))
+--   while run do Wait(1)
 --     if VORPCore ~= nil then
---       TriggerServerEvent('DevDokus:Metabolism:S:StartStatus')
+--       -- TriggerServerEvent('DevDokus:Metabolism:S:StartStatus')
 --       run = false
 --     end
 --   end
 -- end)
 --------------------------------------------------------------------------------
 Citizen.CreateThread(function()
-  while true do Wait(1000)
+  while true do Wait(10000)
     if VORPCore ~= nil and IsStatsSet then
       local hot     = 0
       local cold    = 0
@@ -137,32 +138,5 @@ AddEventHandler('DevDokus:Metabolism:C:StaminaOuter', function(value)
   local User   = PlayerPedId()
   Citizen.InvokeNative(0xF6A7C08DF2E28B28, User, 1, value, true)
 end)
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 --------------------------------------------------------------------------------

@@ -9,7 +9,7 @@ function Invoke(args, bool) Citizen.InvokeNative(args, bool) end
 -- Core
 --------------------------------------------------------------------------------
 Citizen.CreateThread(function()
-  while true do Wait(5000)
+  while true do Wait(10000)
     Invoke(0x50C803A4CD5932C5, true)
     local User   = PlayerPedId()
     local coords = GetEntityCoords(User)

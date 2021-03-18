@@ -27,14 +27,19 @@ start to receive warnings about your vitals.            
 - `Lower food and.or thirst when running.`
 - `Lower food and/or thirst when walking.`
 - `Lower food and/or thirst when standing idle.`
+- `Set lower or higher value for hunger`
+- `Set lower or higher value for thirst`
+- `Set lower or higher value for Stamina`
+- `Boost Stamina outer core (Gold)`
+- `Boost Stamina inner core (Gold)`
 
 # Events
 ```
 TriggerEvent('DevDokus:Metabolism:C:SetFirstStatus', value)
 TriggerEvent('DevDokus:Metabolism:C:Hunger', value)
 TriggerEvent('DevDokus:Metabolism:C:Thirst', value)
-TriggerEvent('DevDokus:Metabolism:C:Stamina', value)
 TriggerEvent('DevDokus:Metabolism:C:Health', value)
+TriggerEvent('DevDokus:Metabolism:C:Stamina', value)
 TriggerEvent('DevDokus:Metabolism:C:StaminaInner', value)
 TriggerEvent('DevDokus:Metabolism:C:StaminaOuter', value)
 ```

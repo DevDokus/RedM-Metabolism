@@ -31,6 +31,17 @@ and make changes to it. Just make sure you put
 my name and GitHub link in your upload. 
 
 Have fun everyone :)
+--------------------------------------------------------------------------------
+Value = number between 0 and 100
+TriggerEvent('DevDokus:Metabolism:C:SetFirstStatus', value)
+TriggerEvent('DevDokus:Metabolism:C:Hunger', value)
+TriggerEvent('DevDokus:Metabolism:C:Thirst', value)
+TriggerEvent('DevDokus:Metabolism:C:Health', value)
+TriggerEvent('DevDokus:Metabolism:C:Stamina', value)
+
+Value = seconds for the boost to be active.
+TriggerEvent('DevDokus:Metabolism:C:StaminaInner', value)
+TriggerEvent('DevDokus:Metabolism:C:StaminaOuter', value)
 
 --------------------------------------------------------------------------------
 -- Credits --
