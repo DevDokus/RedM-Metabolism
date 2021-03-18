@@ -65,3 +65,5 @@ Have fun everyone :)
 # My other RedM scripts
 - [RedM Teleport]( https://github.com/DevDokus/RedM-Teleport)
 - [RedM Stores](https://github.com/DevDokus/Redm-Stores)
+- [RedM Usable Items](https://github.com/DevDokus/RedM-UsableItems)
+- [RedM Metabolism](https://github.com/DevDokus/RedM-Metabolism)
