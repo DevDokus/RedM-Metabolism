@@ -4,6 +4,12 @@
 # Requirements
 - [VorpCore](https://github.com/VORPCORE/VORP-Core)
 
+# Discord
+If you need any information about my script,<br>
+if you found a bug, if you have an idea for the 
+next version, or if you simply need some help.
+Feel free to join our [Discord](http://discord.gg/2gdypBhsye)
+
 # Framework
 Currently, this script only works with VORP. <br>
 In the near future this script will also be <br>
