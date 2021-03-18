@@ -41,7 +41,6 @@ start to receive warnings about your vitals.            
 
 # Events
 ```
-TriggerEvent('DevDokus:Metabolism:C:SetFirstStatus', value)
 TriggerEvent('DevDokus:Metabolism:C:Hunger', value)
 TriggerEvent('DevDokus:Metabolism:C:Thirst', value)
 TriggerEvent('DevDokus:Metabolism:C:Health', value)
