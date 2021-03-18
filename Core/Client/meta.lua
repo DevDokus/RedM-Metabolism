@@ -14,8 +14,6 @@ Citizen.CreateThread(function()
 end)
 --------------------------------------------------------------------------------
 -- Event Register
-RegisterNetEvent('DevDokus:Metabolism:C:SetFirstStatus')
-RegisterNetEvent('DevDokus:Metabolism:C:Consume')
 RegisterNetEvent('DevDokus:Metabolism:C:Hunger')
 RegisterNetEvent('DevDokus:Metabolism:C:Thirst')
 RegisterNetEvent('DevDokus:Metabolism:C:Stamina')
@@ -33,7 +31,7 @@ local DyingCount = 0
 local WarningCount = 0
 local IsDying = false
 local DeathWarning = false
-local IsStatsSet  = false
+-- local IsStatsSet  = false
 --------------------------------------------------------------------------------
 -- Citizen.CreateThread(function()
 --   local run = true
@@ -46,13 +44,15 @@ local IsStatsSet  = false
 -- end)
 --------------------------------------------------------------------------------
 Citizen.CreateThread(function()
-  while true do Wait(10000)
-    if VORPCore ~= nil and IsStatsSet then
+  while true do Wait(1)
+    if VORPCore ~= nil then
       local hot     = 0
       local cold    = 0
       local User    = PlayerPedId()
       local coords  = GetEntityCoords(User)
       local temp    = math.floor(GetTemperatureAtCoords(coords))
+
+      -- TriggerServerEvent('DevDokus:Metabolism:S:Console', _Hunger, _Thirst)
 
       if temp >= Temperature.Max then hot  = Temperature.HotDamage end
       if temp <= Temperature.Min then cold = Temperature.ColdDamage end
@@ -82,7 +82,7 @@ end)
 
 Citizen.CreateThread(function()
   while true do
-    if VORPCore ~= nil and IsStatsSet then
+    if VORPCore ~= nil then
       local User = PlayerPedId()
       local Core = GetAttributeCoreValue(User, 0)
       if Core == 0 then
@@ -95,11 +95,11 @@ Citizen.CreateThread(function()
   end
 end)
 
-AddEventHandler('DevDokus:Metabolism:C:SetFirstStatus', function(Data)
-  _Hunger = (Data.Hunger / 10)
-  _Thirst = (Data.Thirst / 10)
-  IsStatsSet = true
-end)
+-- AddEventHandler('DevDokus:Metabolism:C:SetFirstStatus', function(Data)
+--   _Hunger = (Data.Hunger)
+--   _Thirst = (Data.Thirst)
+--   IsStatsSet = true
+-- end)
 
 AddEventHandler('DevDokus:Metabolism:C:Hunger', function(value)
   _Hunger = _Hunger + tonumber(value)

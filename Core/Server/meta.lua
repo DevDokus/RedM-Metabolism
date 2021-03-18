@@ -33,7 +33,10 @@
 -- end)
 --
 
-
+RegisterServerEvent('DevDokus:Metabolism:S:Console')
+AddEventHandler('DevDokus:Metabolism:S:Console', function(hunger, thirst)
+  print(hunger, thirst)
+end)
 
 
 
