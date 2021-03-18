@@ -6,9 +6,9 @@ Temperature = {
   Format         = 'C',    -- C or F
   Max            = 20,
   Min            = -20,
-  ColdDamage     = 3,
-  HotDamage      = 3,
-  DamagePerSec   = 5,
+  ColdDamage     = 0.01,
+  HotDamage      = 0.01,
+  DamagePerSec   = 1,
 }
 
 -- Food Settings
@@ -27,8 +27,8 @@ Water = {
   DrainIdle    = 0.0005,
   DrainRunning = 0.01,
   DrainWalking = 0.0035,
-  LossTempHot  = 1.5,
-  LossTempCold = 1,
+  LossTempHot  = 0.01,
+  LossTempCold = 0.01,
   LoseWhen     = 10,
   DamagePerSec = 1,
 }
