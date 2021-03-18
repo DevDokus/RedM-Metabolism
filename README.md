@@ -61,3 +61,7 @@ Have fun everyone :)
 
 # Credits
 [SirFreddie](https://github.com/SirFreddie) For the hud we use.
+
+# My other RedM scripts
+- [RedM Teleport]( https://github.com/DevDokus/RedM-Teleport)
+- [RedM Stores](https://github.com/DevDokus/Redm-Stores)
