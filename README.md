@@ -72,3 +72,25 @@ Have fun everyone :)
 - [RedM Stores](https://github.com/DevDokus/Redm-Stores)
 - [RedM Usable Items](https://github.com/DevDokus/RedM-UsableItems)
 - [RedM Metabolism](https://github.com/DevDokus/RedM-Metabolism)
+
+# Change Notes:
+- >Cold and Heat damage do now separate damage to hunger and thirst, heat drains  <br>
+  >your water faster then food, and cold drains your food faster then water.  <br>
+  >You can set the drain damage for each hunger and thirst, for both  <br>
+  >heat and cold damage.  <br>
+- >Removed all lines of codes in the client and config file that where not  <br>
+  >used, or where redundant due to the new update.  <br>
+- >FIXED: Only food was applying damage to your health when running low. I did  <br>
+  >not yet have the thirst part in it yet. This is now fixed. Note that both  <br>
+  >hunger and thirst apply separate damage to your health.  <br>
+- >FIXED: Once you died the character vitals did not reset. The script kept <br>
+  >draining your newly got health the moment you respawned. This is now fixed.  <br>
+  >Once your dead the script will wait for your core health to regenerate, once <br>
+  >that process has started, the script will reset itself and start over. <br>
+- >I had some left overs from testing that had to be removed. It was refreshing <br>
+  >part of the code every 1 millisecond, while this had to be 1 second. Thus the  <br>
+  >values in the config where very low. The leftovers are deleted and everything  <br>
+  >is corrected. The config has changed to more readable values.  <br>
+- >Added in some dialog whenever you are dying. This gives you more visual clues  <br>
+  >to save your life. These dialogs will in a later version be randomized.  <br>
+- >Added settings information in the config file.
