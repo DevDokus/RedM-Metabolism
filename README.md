@@ -1,4 +1,4 @@
-# RedM-Metabolism (v1.0.0)
+# RedM-Metabolism (v1.1.0)
  Adds a couple new status effects and gives your citizens reason to eat and drink
 
 # Requirements
@@ -30,7 +30,7 @@ start to receive warnings about your vitals.            
 # Features
 - `Easy to configure config.`
 - `Very Customizable`
-- `Lower food and.or thirst when running.`
+- `Lower food and/or thirst when running.`
 - `Lower food and/or thirst when walking.`
 - `Lower food and/or thirst when standing idle.`
 - `Set lower or higher value for hunger`

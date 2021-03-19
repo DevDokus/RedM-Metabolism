@@ -8,7 +8,7 @@ games {"rdr3"}
 
 description 'Customizable Metabolism for RedM'
 author 'DevDokus Github'
-version '1.0.0'
+version '1.1.0'
 
 client_scripts {
     'Core/Client/meta.lua',

@@ -34,8 +34,8 @@
 --
 
 RegisterServerEvent('DevDokus:Metabolism:S:Console')
-AddEventHandler('DevDokus:Metabolism:S:Console', function(hunger, thirst)
-  print(hunger, thirst)
+AddEventHandler('DevDokus:Metabolism:S:Console', function(args)
+  print(args[1], args[2], args[3], args[4])
 end)
 
 

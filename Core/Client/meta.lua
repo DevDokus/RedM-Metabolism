@@ -29,7 +29,6 @@ _Thirst     = 100
 _Stamina    = 100
 local DyingCount = 0
 local WarningCount = 0
-local IsDying = false
 local DeathWarning = false
 -- local IsStatsSet  = false
 --------------------------------------------------------------------------------
@@ -44,37 +43,36 @@ local DeathWarning = false
 -- end)
 --------------------------------------------------------------------------------
 Citizen.CreateThread(function()
-  while true do Wait(1)
+  while true do Wait(1000)
     if VORPCore ~= nil then
-      local hot     = 0
-      local cold    = 0
+      local DrainFood  = 0
+      local DrainWater = 0
       local User    = PlayerPedId()
       local coords  = GetEntityCoords(User)
       local temp    = math.floor(GetTemperatureAtCoords(coords))
 
-      -- TriggerServerEvent('DevDokus:Metabolism:S:Console', _Hunger, _Thirst)
-
-      if temp >= Temperature.Max then hot  = Temperature.HotDamage end
-      if temp <= Temperature.Min then cold = Temperature.ColdDamage end
+      if (temp >= Temperature.Max) then
+        DrainFood  = Temperature.HotDamage.Food
+        DrainWater = Temperature.HotDamage.Water
+      elseif (temp <= Temperature.Min) then
+        DrainFood  = Temperature.ColdDamage.Food
+        DrainWater = Temperature.ColdDamage.Water
+      end
 
       local running = IsPedRunning(User)
       local walking = IsPedWalking(User)
 
-      if running then
-        _Hunger  = _Hunger - (Food.DrainRunning + cold)
-        _Thirst  = _Thirst - (Water.DrainRunning + cold)
-      elseif walking then
-        _Hunger  = _Hunger - (Food.DrainWalking + cold)
-        _Thirst  = _Thirst - (Water.DrainWalking + cold)
-      else
-        _Hunger  = _Hunger - (Food.DrainIdle + cold)
-        _Thirst  = _Thirst - (Water.DrainIdle + cold)
-      end
+      -- TriggerServerEvent('DevDokus:Metabolism:S:Console', {_Hunger,_Thirst})
 
-      if _Hunger < Food.LoseWhen then
-        local Core = GetAttributeCoreValue(User, 0)
-        local health = (Core - Food.DamagePerSec)
-        Citizen.InvokeNative(0xC6258F41D86676E0, User, 0, health)
+      if running then
+        _Hunger  = _Hunger - (Food.DrainRunning + DrainFood)
+        _Thirst  = _Thirst - (Water.DrainRunning + DrainWater)
+      elseif walking then
+        _Hunger  = _Hunger - (Food.DrainWalking + DrainFood)
+        _Thirst  = _Thirst - (Water.DrainWalking + DrainWater)
+      else
+        _Hunger  = _Hunger - (Food.DrainIdle + DrainFood)
+        _Thirst  = _Thirst - (Water.DrainIdle + DrainWater)
       end
     end
   end
@@ -83,12 +81,73 @@ end)
 Citizen.CreateThread(function()
   while true do
     if VORPCore ~= nil then
+      if _Hunger < Food.LoseWhen then
+        local User    = PlayerPedId()
+        local Core = GetAttributeCoreValue(User, 0)
+        local health = (Core - Food.DamagePerSec)
+        Citizen.InvokeNative(0xC6258F41D86676E0, User, 0, health)
+      end
+
+      if _Thirst < Water.LoseWhen then
+        local User    = PlayerPedId()
+        local Core = GetAttributeCoreValue(User, 0)
+        local health = (Core - Water.DamagePerSec)
+        Citizen.InvokeNative(0xC6258F41D86676E0, User, 0, health)
+      end
+    end
+    Wait(1000)
+  end
+end)
+
+local stage = { s1 = false, s2 = false, s3 = false}
+local DeadOrAlive = true
+local CoreIsZero = false
+Citizen.CreateThread(function()
+  while true do
+    if VORPCore ~= nil then
       local User = PlayerPedId()
       local Core = GetAttributeCoreValue(User, 0)
-      if Core == 0 then
-        IsDying = true
-        Citizen.InvokeNative(0x697157CED63F18D4, PlayerPedId(), 5, false, true, true)
-        TriggerEvent("vorp:TipRight", 'You\'re dying, check your vitals!', 5000)
+      local eHealth = GetEntityHealth(User)
+      -- print(Core, eHealth, DeadOrAlive, stage.s1, stage.s2, stage.s3, CoreIsZero)
+
+      -- STOP: If user is dead, let's wait until the player is alive again.
+      if (Core == 0) and not DeadOrAlive then print("Waiting for respawn.....") return end
+
+      if (Core == 0) and DeadOrAlive then
+        CoreIsZero = true
+        if (eHealth >= 50) then
+          Citizen.InvokeNative(0x697157CED63F18D4, User, 5, false, true, true)
+          if stage.s1 == false then stage.s1 = true TriggerEvent("vorp:TipRight", 'You\'re dying, check your vitals!', 5000) end
+        elseif (eHealth < 50) and (eHealth >= 35) then
+          Citizen.InvokeNative(0x697157CED63F18D4, User, 5, false, true, true)
+          if stage.s2 == false then stage.s2 = true TriggerEvent("vorp:TipRight", 'I feel tingling in my fingers...', 5000) end
+        elseif (eHealth < 35) and (eHealth >= 2) then
+          Citizen.InvokeNative(0x697157CED63F18D4, User, 5, false, true, true)
+          if stage.s3 == false then stage.s3 = true TriggerEvent("vorp:TipRight", 'I can see the lights, the end is near...', 5000) end
+        elseif (eHealth < 2) then
+          Citizen.InvokeNative(0x697157CED63F18D4, User, 50000, false, true, true)
+          DeadOrAlive = false
+        end
+      end
+      ---------------------------- WORK IN PROGRESS ----------------------------
+      -- ToDo: Detecting when user eats or drinks to reset the dialog for dying.
+      if (Core ~= 0) and CoreIsZero then print("User healed") CoreIsZero = false end
+      --------------------------------------------------------------------------
+
+      -- When the player comes back to live, reset the script.
+      if (Core ~= 0) and not DeadOrAlive then
+        TriggerEvent('DevDokus:Metabolism:C:Health', 100)
+        CoreIsZero = false
+        DeadOrAlive = true
+        _Hunger     = 100
+        _Thirst     = 100
+        _Stamina    = 100
+        DyingCount = 0
+        WarningCount = 0
+        DeathWarning = false
+        stage.s1 = false
+        stage.s2 = false
+        stage.s3 = false
       end
     end
     Wait(5000)
