@@ -2,9 +2,17 @@
 --------------------------------------------------------------------------------
 --------------------------------- CHANGE NOTES ---------------------------------
 --------------------------------------------------------------------------------
---------------------------------------------------------------------------------
-[ Version 1.1.0 ]: Couple fixes and removed some old code.
 
+--------------------------------------------------------------------------------
+-------------------------------- Version 1.2.0 ---------------------------------
+--------------------------------------------------------------------------------
+[1]: Small patch on the metabolism script. Here I was not flooring a number thus
+     creating a decimal number like (10.0). This resulted in the script being
+     unable to change the users health.
+     
+--------------------------------------------------------------------------------
+-------------------------------- Version 1.1.0 ---------------------------------
+--------------------------------------------------------------------------------
 [1]: Cold and Heat damage do now separate damage to hunger and thirst, heat drains
      your water faster then food, and cold drains your food faster then water.
      You can set the drain damage for each hunger and thirst, for both
